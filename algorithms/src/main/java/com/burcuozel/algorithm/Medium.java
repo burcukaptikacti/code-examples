@@ -1,6 +1,6 @@
 package com.burcuozel.algorithm;
 
-import com.burcuozel.algorithm.util.ListNode;
+import com.burcuozel.algorithm.model.ListNode;
 
 public class Medium {
 
@@ -27,6 +27,22 @@ public class Medium {
 		}
 
 		return head.next;
+	}
+
+	public static int lengthOfLongestSubstring(String s) {
+
+		int length = 0;
+		for (int i = 0; i < s.length(); i++) {
+			int tempLength = 1;
+			for (int j = i + 1; j < s.length(); j++) {
+				if (s.charAt(i) == s.charAt(j)) {
+					break;
+				}
+				tempLength++;
+			}
+			length = Math.max(length, tempLength);
+		}
+		return length;
 
 	}
 

@@ -1,4 +1,4 @@
-package com.burcuozel.algorithm.util;
+package com.burcuozel.algorithm.model;
 
 public class ListNode {
 	public int val;
