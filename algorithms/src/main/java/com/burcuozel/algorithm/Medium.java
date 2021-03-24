@@ -1,5 +1,7 @@
 package com.burcuozel.algorithm;
 
+import java.util.HashSet;
+
 import com.burcuozel.algorithm.model.ListNode;
 
 public class Medium {
@@ -31,19 +33,24 @@ public class Medium {
 
 	public static int lengthOfLongestSubstring(String s) {
 
-		int length = 0;
-		for (int i = 0; i < s.length(); i++) {
-			int tempLength = 1;
-			for (int j = i + 1; j < s.length(); j++) {
-				if (s.charAt(i) == s.charAt(j)) {
-					break;
-				}
-				tempLength++;
+		int i=0;
+		int j=0;
+		int max=0;
+		
+		HashSet<Character> charSet=new HashSet<Character>();
+		while(j<s.length()) {
+			if(!charSet.contains(s.charAt(j))) {
+				charSet.add(s.charAt(j));
+				max=Math.max(max, charSet.size());
+				j++;
+				
+			}else {
+				charSet.remove(s.charAt(i));
+			i++;
 			}
-			length = Math.max(length, tempLength);
 		}
-		return length;
-
+		
+		return max;
 	}
 
 }
