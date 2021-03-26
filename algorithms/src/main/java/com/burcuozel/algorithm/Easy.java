@@ -29,25 +29,21 @@ public class Easy {
 
 	public static int reverseInteger(int x) {
 
-		if (x > Integer.MAX_VALUE)
-			return 0;
-		int tempX = x < 0 ? x * (-1) : x;
+		int tempNumber = x < 0 ? x * (-1) : x;
+		int reversedNumber = 0;
 
-		ArrayList<Integer> numbers = new ArrayList<>();
-		while (tempX > 0) {
-			int mod = tempX % 10;
-			numbers.add(mod);
-			tempX = tempX - mod;
-			tempX = tempX / 10;
+		while (tempNumber != 0) {
 
+			int mod = tempNumber % 10;
+
+			if (reversedNumber > (Integer.MAX_VALUE - mod) / 10)
+				return 0;
+
+			reversedNumber = (reversedNumber * 10) + mod;
+			tempNumber = tempNumber / 10;
 		}
-		int reverseNumber = 0;
-		int multiplyValue = 1;
-		for (int i = numbers.size() - 1; i >= 0; i--) {
-			reverseNumber += (numbers.get(i) * multiplyValue);
-			multiplyValue *= 10;
-		}
-		return x < 0 ? reverseNumber * (-1) : reverseNumber;
+
+		return x < 0 ? reversedNumber * (-1) : reversedNumber;
 	}
 
 	public static int minimumCharDeleteCount(String x) {

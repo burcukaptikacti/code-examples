@@ -24,10 +24,10 @@ public class EasyUnitTest {
 
 	@Test
 	public void test_reverseIntegersss() {
-		assertEquals(1, Easy.reverseInteger("aaaabbbb"));
-		assertEquals(6, Easy.reverseInteger("ccaaffddecee"));
-		assertEquals(0, Easy.reverseInteger("eee"));
-		assertEquals(4, Easy.reverseInteger("example"));
+		assertEquals(1, Easy.minimumCharDeleteCount("aaaabbbb"));
+		assertEquals(6, Easy.minimumCharDeleteCount("ccaaffddecee"));
+		assertEquals(0, Easy.minimumCharDeleteCount("eee"));
+		assertEquals(4, Easy.minimumCharDeleteCount("example"));
 	}
 
 }
