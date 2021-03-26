@@ -1,6 +1,5 @@
 package com.burcuozel.algorithm;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,5 +79,23 @@ public class Easy {
 		}
 
 		return removedCount;
+	}
+
+	public static void reverseString(char[] s) {
+
+		int startIndex = 0;
+		int endIndex = s.length - 1;
+
+		while (startIndex < endIndex) {
+
+			char temp = s[startIndex];
+			s[startIndex] = s[endIndex];
+
+			s[endIndex] = temp;
+
+			startIndex++;
+			endIndex--;
+		}
+
 	}
 }

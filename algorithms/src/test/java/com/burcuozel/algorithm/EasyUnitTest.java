@@ -30,4 +30,14 @@ public class EasyUnitTest {
 		assertEquals(4, Easy.minimumCharDeleteCount("example"));
 	}
 
+	@Test
+	public void test_reverseString() {
+
+		char[] s = { 'h', 'e', 'l', 'l', 'o' };
+
+		char[] expected = { 'o', 'l', 'l', 'e', 'h' };
+
+		Easy.reverseString(s);
+		assertArrayEquals(expected, s);
+	}
 }
