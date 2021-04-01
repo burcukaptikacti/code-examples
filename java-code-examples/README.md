@@ -18,6 +18,10 @@
 
 * **CMS Collector: ** CMS has three basic operations: CMS collects the young generation (stopping all application threads), CMS runs a concurrent cycle to clean data out of the old generation and If necessary, CMS performs a full GC.
 Concurrent mode failures and promotion failures in CMS are quite expensive; CMS should be tuned to avoid these as much as possible.
+The old generation initially fills up by placing the objects right next to each other. When some amount of the old generation is filled (by default, 70%), the concurrent cycle begins and the background CMS thread(s) start scanning the old generation for garbage. At this point, a race is on: CMS must complete scanning the old generation and freeing objects before the remainder (30%) of the old generation fills up. If the concurrent cycle loses the race, CMS will experience a concurrent mode failure.There are multiple ways to attempt to avoid this failure: Make the old generation larger, either by shifting the proportion of the new generation to the old generation, or by adding more heap space altogether. /Run the background thread more often. / Use more background threads.
+
+
+* **G1 :** has four main operations: A young collection, A background, concurrent cycle, A mixed collection, If necessary, a full GC
 
 
 
@@ -27,5 +31,4 @@ Concurrent mode failures and promotion failures in CMS are quite expensive; CMS 
 
 
 
-
-
+ 
