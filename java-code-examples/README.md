@@ -23,6 +23,11 @@ The old generation initially fills up by placing the objects right next to each 
 
 * **G1 :** has four main operations: A young collection, A background, concurrent cycle, A mixed collection, If necessary, a full GC
 
+##### HEAP MEMORY PRACTICES
+* The **retained memory** of an object is the amount of memory that would be freed if the object itself were eligible to be collected. 
+* The **shallow size** of an object is the size of the object itself. If the object contains a reference to another object, the 4 or 8 bytes of the reference is included, but the size of the target object is not included.
+* The **deep size** of an object includes the size of those objects. The difference between the deep size of an object and the retained memory of an object lies in objects that are otherwise shared. 
+
 
 
 
