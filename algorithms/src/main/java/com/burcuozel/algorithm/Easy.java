@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import com.burcuozel.algorithm.model.TreeNode;
+
 public class Easy {
 
 	public static int[] twoSum(int[] nums, int target) {
@@ -96,6 +98,37 @@ public class Easy {
 			startIndex++;
 			endIndex--;
 		}
+	}
+
+	/*
+	 * This question can be solved with String.substring but then time complexity
+	 * will be O(n2) because String.substring's time complexity is O(n)
+	 * 
+	 */
+	public static int maxTwoDigitNumberInString(String s) {
+
+		int max = Integer.MIN_VALUE;
+		char zero = '0';
+		for (int i = 0; i < s.length() - 1; i++) {
+
+			int currentNum = ((s.charAt(i) - zero) * 10) + (s.charAt(i + 1) - zero);
+			max = Math.max(max, currentNum);
+		}
+
+		return max;
+	}
+
+	public static int maxDepth(TreeNode root) {
+
+		if (root == null) {
+			return 0;
+		}
+
+		int left = maxDepth(root.left);
+		int right = maxDepth(root.right);
+
+		return Math.max(left, right) + 1;
 
 	}
+
 }
