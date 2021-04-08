@@ -38,4 +38,12 @@ public class MediumUnitTest {
 		assertEquals(0, Medium.lengthOfLongestSubstring(""));
 	}
 
+	@Test
+	public void test_countOfDeletedChars() {
+		assertEquals(1, Medium.countOfDeletedChars("aaaabbbb"));
+		assertEquals(6, Medium.countOfDeletedChars("ccaaffddecee"));
+		assertEquals(0, Medium.countOfDeletedChars("eee"));
+		assertEquals(4, Medium.countOfDeletedChars("example"));
+	}
+
 }

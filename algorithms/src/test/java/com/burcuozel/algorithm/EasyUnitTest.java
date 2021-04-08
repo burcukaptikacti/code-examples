@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.burcuozel.algorithm.util.TreeUtil;
+
 public class EasyUnitTest {
 
 	@Test
@@ -23,21 +25,26 @@ public class EasyUnitTest {
 	}
 
 	@Test
-	public void test_reverseIntegersss() {
-		assertEquals(1, Easy.minimumCharDeleteCount("aaaabbbb"));
-		assertEquals(6, Easy.minimumCharDeleteCount("ccaaffddecee"));
-		assertEquals(0, Easy.minimumCharDeleteCount("eee"));
-		assertEquals(4, Easy.minimumCharDeleteCount("example"));
-	}
-
-	@Test
 	public void test_reverseString() {
 
 		char[] s = { 'h', 'e', 'l', 'l', 'o' };
-
 		char[] expected = { 'o', 'l', 'l', 'e', 'h' };
 
 		Easy.reverseString(s);
 		assertArrayEquals(expected, s);
+	}
+
+	@Test
+	public void test_maxTwoDigitNumberInString() {
+		assertEquals(55, Easy.maxTwoDigitNumberInString("50552"));
+		assertEquals(10, Easy.maxTwoDigitNumberInString("10101"));
+		assertEquals(88, Easy.maxTwoDigitNumberInString("88"));
+	}
+
+	@Test
+	public void test_maxDepth() {
+		Integer[] nums = { 3, 9, 20, null, null, 15, 7 };
+		TreeUtil.createTreeFromArray(nums);
+
 	}
 }
