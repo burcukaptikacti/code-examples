@@ -15,7 +15,7 @@ public class TreeUtil {
 
 		getTreeNode(root, nums, (i * 2) + 1, (i * 2) + 2);
 
-		printTree(root);
+		// printTree(root);
 
 		return root;
 	}
@@ -48,7 +48,7 @@ public class TreeUtil {
 		StringBuilder builder = new StringBuilder(node.val);
 		printTreeChildren(node.left, builder);
 		printTreeChildren(node.right, builder);
-		
+
 		System.out.println(builder.toString());
 
 	}

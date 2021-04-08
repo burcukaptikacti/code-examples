@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+import com.burcuozel.algorithm.model.ListNode;
 import com.burcuozel.algorithm.model.TreeNode;
 
 public class Easy {
@@ -129,6 +130,96 @@ public class Easy {
 
 		return Math.max(left, right) + 1;
 
+	}
+
+	public static void deleteNode(ListNode node) {
+
+		node.val = node.next.val;
+		node = node.next.next;
+	}
+
+	public static int singleNumber(int[] nums) {
+		int ans = 0;
+		for (int i = 0; i < nums.length; i++)
+			ans = ans ^ nums[i];
+
+		return ans;
+	}
+
+	public static String reverseVowels(String s) {
+
+		HashSet<Character> vovelSet = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+
+		int start = 0;
+		int end = s.length() - 1;
+
+		char[] str = s.toCharArray();
+
+		while (start < end) {
+			if (!vovelSet.contains(str[start])) {
+				start++;
+			} else if (!vovelSet.contains(str[end])) {
+
+				end--;
+			} else {
+				char temp = str[start];
+				str[start] = str[end];
+				str[end] = temp;
+
+				start++;
+				end--;
+			}
+		}
+
+		return String.valueOf(str);
+	}
+
+	public static String reverseStr(String s, int k) {
+
+		char[] str = s.toCharArray();
+
+		int i = 0;
+
+		while (str.length > i) {
+
+			if ((str.length - i) >= k) {
+				swap(str, i, i + k - 1);
+				i = i + (2 * k);
+			} else {
+				swap(str, i, str.length - 1);
+				i = i + k;
+			}
+		}
+
+		return String.valueOf(str);
+	}
+
+	private static void swap(char[] str, int i, int k) {
+		while (i < k) {
+			char temp = str[i];
+			str[i] = str[k];
+			str[k] = temp;
+			k--;
+			i++;
+		}
+	}
+
+	public static String reverseWords(String s) {
+
+		int start = 0;
+		int end = 0;
+
+		char[] str = s.toCharArray();
+
+		while (end <= str.length) {
+
+			if (end == str.length || str[end] == ' ') {
+				swap(str, start, end - 1);
+				start = end + 1;
+			}
+			end++;
+		}
+		return String.valueOf(str);
 	}
 
 }

@@ -47,4 +47,34 @@ public class EasyUnitTest {
 		TreeUtil.createTreeFromArray(nums);
 
 	}
+
+	@Test
+	public void test_singleNumber() {
+		int[] nums = { 4, 1, 2, 1, 2 };
+		assertEquals(4, Easy.singleNumber(nums));
+
+		int[] numsSingleElement = { 1 };
+		assertEquals(1, Easy.singleNumber(numsSingleElement));
+
+	}
+
+	@Test
+	public void test_reverseVowels() {
+
+		assertEquals("holle", Easy.reverseVowels("hello"));
+		assertEquals("leotcede", Easy.reverseVowels("leetcode"));
+		assertEquals("oA", Easy.reverseVowels("Ao"));
+	}
+
+	@Test
+	public void test_reverseStr() {
+		assertEquals("bacdfeg", Easy.reverseStr("abcdefg", 2));
+		assertEquals("bacd", Easy.reverseStr("abcd", 2));
+	}
+
+	@Test
+	public void test_reverseWords() {
+		assertEquals("s'teL ekat edoCteeL tsetnoc", Easy.reverseWords("Let's take LeetCode contest"));
+		assertEquals("doG gniD", Easy.reverseWords("God Ding"));
+	}
 }
