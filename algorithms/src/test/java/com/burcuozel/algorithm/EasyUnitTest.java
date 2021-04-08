@@ -25,14 +25,6 @@ public class EasyUnitTest {
 	}
 
 	@Test
-	public void test_reverseIntegers() {
-		assertEquals(1, Easy.minimumCharDeleteCount("aaaabbbb"));
-		assertEquals(6, Easy.minimumCharDeleteCount("ccaaffddecee"));
-		assertEquals(0, Easy.minimumCharDeleteCount("eee"));
-		assertEquals(4, Easy.minimumCharDeleteCount("example"));
-	}
-
-	@Test
 	public void test_reverseString() {
 
 		char[] s = { 'h', 'e', 'l', 'l', 'o' };

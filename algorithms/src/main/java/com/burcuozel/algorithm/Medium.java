@@ -33,24 +33,62 @@ public class Medium {
 
 	public static int lengthOfLongestSubstring(String s) {
 
-		int i=0;
-		int j=0;
-		int max=0;
-		
-		HashSet<Character> charSet=new HashSet<Character>();
-		while(j<s.length()) {
-			if(!charSet.contains(s.charAt(j))) {
+		int i = 0;
+		int j = 0;
+		int max = 0;
+
+		HashSet<Character> charSet = new HashSet<Character>();
+		while (j < s.length()) {
+			if (!charSet.contains(s.charAt(j))) {
 				charSet.add(s.charAt(j));
-				max=Math.max(max, charSet.size());
+				max = Math.max(max, charSet.size());
 				j++;
-				
-			}else {
+
+			} else {
 				charSet.remove(s.charAt(i));
-			i++;
+				i++;
 			}
 		}
-		
+
 		return max;
+	}
+
+	public static int countOfDeletedChars(String s) {
+
+		int[] frequences = new int[26];
+
+		for (int i = 0; i < s.length(); i++) {
+			frequences[s.charAt(i) - 'a']++;
+		}
+
+		HashSet<Integer> occurrences = new HashSet<Integer>();
+
+		int totalDeletedChars = 0;
+		for (int i = 0; i < frequences.length; i++) {
+			if (frequences[i] == 0) {
+				continue;
+			}
+
+			if (occurrences.contains(frequences[i])) {
+
+				int currentValue = frequences[i] - 1;
+				while (currentValue > 0) {
+					if (occurrences.contains(currentValue)) {
+						currentValue--;
+					} else {
+						occurrences.add(currentValue);
+						break;
+					}
+				}
+				totalDeletedChars += frequences[i] - currentValue;
+
+			} else {
+				occurrences.add(frequences[i]);
+
+			}
+		}
+
+		return totalDeletedChars;
 	}
 
 }
