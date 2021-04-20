@@ -1,14 +1,70 @@
 package com.burcuozel.algorithm;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.burcuozel.algorithm.model.ListNode;
+import com.burcuozel.algorithm.model.Node;
 import com.burcuozel.algorithm.model.TreeNode;
 
 public class Easy {
+
+	public static List<List<Integer>> generateTriangle(int numRows) {
+		List<List<Integer>> triangle = new ArrayList<>();
+
+		if (numRows == 0)
+			return triangle;
+
+		List<Integer> row = new ArrayList<>();
+		row.add(1);
+		triangle.add(row);
+
+		for (int i = 1; i < numRows; i++) {
+			List<Integer> prevRow = triangle.get(i - 1);
+			List<Integer> currentRow = new ArrayList<>();
+
+			currentRow.add(1);
+
+			for (int j = 1; j < i; j++) {
+				currentRow.add(prevRow.get(j - 1) + prevRow.get(j));
+			}
+
+			currentRow.add(1);
+			triangle.add(currentRow);
+		}
+
+		return triangle;
+
+	}
+
+	public static List<Integer> getRowOfTriangle(int rowIndex) {
+		List<List<Integer>> triangle = new ArrayList<>();
+
+		List<Integer> row = new ArrayList<>();
+		row.add(1);
+		triangle.add(row);
+
+		for (int i = 1; i < rowIndex + 1; i++) {
+			List<Integer> prevRow = triangle.get(i - 1);
+			List<Integer> currentRow = new ArrayList<>();
+
+			currentRow.add(1);
+
+			for (int j = 1; j < i; j++) {
+				currentRow.add(prevRow.get(j - 1) + prevRow.get(j));
+			}
+
+			currentRow.add(1);
+			triangle.add(currentRow);
+		}
+
+		return triangle.get(rowIndex);
+	}
 
 	public static int[] twoSum(int[] nums, int target) {
 
@@ -220,6 +276,246 @@ public class Easy {
 			end++;
 		}
 		return String.valueOf(str);
+	}
+
+	public static List<String> fizzBuzz(int n) {
+		List<String> results = new ArrayList<>();
+
+		for (int i = 1; i <= n; i++) {
+			if (i % 15 == 0) {
+				results.add("FizzBuzz");
+			} else if (i % 5 == 0) {
+				results.add("Buzz");
+			} else if (i % 3 == 0) {
+				results.add("Fizz");
+			} else {
+				results.add(String.valueOf(i));
+			}
+
+		}
+
+		return results;
+	}
+
+	public static int majorityElement(int[] nums) {
+
+		int majorElement = nums[0];
+		int count = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (count == 0) {
+				majorElement = nums[i];
+				count++;
+			} else if (majorElement == nums[i]) {
+				count++;
+			} else {
+				count--;
+			}
+		}
+
+		return majorElement;
+	}
+
+	public static int minDepth(TreeNode root) {
+
+		if (root == null)
+			return 0;
+
+		int left = minDepth(root.left);
+		int right = minDepth(root.right);
+
+		if (left == 0 || right == 0) {
+			return Math.max(left, right) + 1;
+		} else {
+
+			return Math.min(left, right) + 1;
+		}
+	}
+
+	private static boolean isBalanced = true;
+
+	public static boolean isBalanced(TreeNode root) {
+		if (root == null)
+			return true;
+
+		height(root);
+
+		return isBalanced;
+	}
+
+	public static int height(TreeNode root) {
+		if (root == null)
+			return -1;
+
+		int left = height(root.left);
+		int right = height(root.right);
+
+		if (Math.abs(left - right) > 1)
+			isBalanced = false;
+
+		return Math.max(left, right) + 1;
+
+	}
+
+	public int maxDepthNAryTreeNode(Node root) {
+		if (root == null)
+			return 0;
+
+		int max = -1;
+		for (Node node : root.children) {
+			max = Math.max(max, maxDepthNAryTreeNode(node));
+		}
+
+		return max + 1;
+
+	}
+
+	public static void moveZeroes(int[] nums) {
+
+		int i = 0;
+		int j = 0;
+		while (i < nums.length && j < nums.length) {
+			if (nums[i] == 0) {
+				if (nums[j] != 0) {
+					int temp = nums[i];
+					nums[i] = nums[j];
+					nums[j] = temp;
+					i++;
+				}
+			} else {
+				i++;
+			}
+			j++;
+		}
+
+	}
+
+	public static int removeElement(int[] nums, int val) {
+		int m = 0;
+
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] != val) {
+				int temp = nums[m];
+				nums[m] = nums[i];
+				nums[i] = temp;
+				m++;
+			}
+		}
+		return m;
+	}
+
+	public static boolean containsDuplicate(int[] nums) {
+		Set<Integer> set = new HashSet<>();
+		for (int i = 0; i < nums.length; i++) {
+			if (set.contains(nums[i])) {
+				return true;
+			}
+
+			set.add(nums[i]);
+		}
+		return false;
+
+	}
+
+	public static boolean isAnagram(String s, String t) {
+
+		if (s == null && t == null) {
+			return true;
+		}
+		if ((s == null && t != null) || (s != null && t == null)) {
+			return false;
+		}
+		if (s.length() != t.length()) {
+			return false;
+		}
+
+		int[] frequences = new int[26];
+
+		for (int i = 0; i < s.length(); i++) {
+			frequences[s.charAt(i) - 'a']++;
+			frequences[t.charAt(i) - 'a']--;
+		}
+
+		for (int i = 0; i < 26; i++) {
+			if (frequences[i] != 0) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	// Input: strs = ["eat","tea","tan","ate","nat","bat"]
+	// Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+	public List<List<String>> groupAnagrams(String[] strs) {
+		if (strs == null || strs.length == 0)
+			return new ArrayList<>();
+
+		HashMap<String, List<String>> grouppedStr = new HashMap<>();
+		for (int i = 0; i < strs.length; i++) {
+			char[] temp = strs[i].toCharArray();
+			Arrays.sort(temp);
+			String str = String.valueOf(temp);
+
+			if (grouppedStr.containsKey(str)) {
+				grouppedStr.get(str).add(strs[i]);
+			} else {
+				List<String> strList = new ArrayList<>();
+				strList.add(strs[i]);
+				grouppedStr.put(str, strList);
+			}
+		}
+
+		return new ArrayList<List<String>>(grouppedStr.values());
+	}
+
+	public static int maxProfit(int[] prices) {
+
+		int bIndex = 0;
+		int sIndex = 0;
+		int maxProfit = 0;
+		while (bIndex < prices.length && sIndex < prices.length) {
+			maxProfit = Math.max(maxProfit, prices[sIndex] - prices[bIndex]);
+
+			if (prices[sIndex] - prices[bIndex] < 0) {
+				bIndex++;
+			} else {
+				sIndex++;
+			}
+		}
+		return maxProfit;
+	}
+
+	public static boolean isPalindrome(int x) {
+		if (x < 0) {
+			return false;
+		}
+		String s = String.valueOf(x);
+
+		int start = 0;
+		int end = s.length() - 1;
+
+		while (end > start) {
+			if (s.charAt(start) != s.charAt(end)) {
+				return false;
+			}
+			start++;
+			end--;
+		}
+
+		return true;
+
+	}
+
+	public static boolean isPalindrome2(int x) {
+		if (x < 0 || (x != 0 && x % 10 == 0))
+			return false;
+		int rev = 0;
+		while (x > rev) {
+			rev = rev * 10 + x % 10;
+			x = x / 10;
+		}
+		return (x == rev || x == rev / 10);
 	}
 
 }

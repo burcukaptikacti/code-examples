@@ -14,4 +14,13 @@ public class HardUnitTest {
 		assertEquals(5, Hard.minimalCostOfDividingChains(A));
 	}
 
+	@Test
+	public void test_findMedianSortedArrays() {
+
+		int[] A = { 1, 2 };
+		int[] B = { 3, 4 };
+
+		assertTrue(2.5 == Hard.findMedianSortedArrays(A, B));
+	}
+
 }

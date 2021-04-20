@@ -21,4 +21,42 @@ public class Hard {
 
 		return weakest;
 	}
+
+	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+
+		if (nums1.length == 0 && nums2.length == 0) {
+			return 0;
+		}
+
+		int[] totalArray = new int[nums1.length + nums2.length];
+
+		int i = 0;
+
+		int indexOf1 = 0;
+		int indexOf2 = 0;
+
+		while (i < totalArray.length) {
+
+			int num1 = indexOf1 < nums1.length ? nums1[indexOf1] : Integer.MAX_VALUE;
+			int num2 = indexOf2 < nums2.length ? nums2[indexOf2] : Integer.MAX_VALUE;
+
+			totalArray[i] = Math.min(num1, num2);
+
+			if (num1 < num2) {
+				indexOf1++;
+			} else {
+				indexOf2++;
+			}
+			i++;
+		}
+
+		if (totalArray.length % 2 == 0) {
+			System.out.println((totalArray[(totalArray.length / 2) - 1] + totalArray[(totalArray.length / 2)]) / 2);
+
+			return ((double) (totalArray[(totalArray.length / 2) - 1] + totalArray[(totalArray.length / 2)])) / 2;
+		} else {
+			return totalArray[totalArray.length / 2];
+		}
+
+	}
 }
