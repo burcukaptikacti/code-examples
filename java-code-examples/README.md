@@ -28,10 +28,18 @@ The old generation initially fills up by placing the objects right next to each 
 * The **shallow size** of an object is the size of the object itself. If the object contains a reference to another object, the 4 or 8 bytes of the reference is included, but the size of the target object is not included.
 * The **deep size** of an object includes the size of those objects. The difference between the deep size of an object and the retained memory of an object lies in objects that are otherwise shared. 
 
+**Out Of Memory** 
+ For both permgen and the regular heap, out of memory errors most frequently occur because of memory leaks; heap analysis tools can help to find the root cause of the leak
+* No native memory is available for the JVM.
+* The permgen (in Java 7 and earlier) or metaspace (in Java 8) is out of memory: The root cause can be two things: the first is simply that the application uses more classes than can fit in the default perm space; the solution to that is to increase the size of permgen. The second case is trickier: it involves a classloader memory leak. 
+* The Java heap itself is out of memory: the application has too many live objects for the given heap size.
+* The JVM is spending too much time performing GC.
 
 
-
-
+**Using Less Memory**
+*The size of an object is not always immediately apparent: ob‐ jects are padded to fit on 8-byte boundaries, and object refer‐ ence sizes are different between 32- and 64-bit JVMs. Even null instance variables consume space within object classes.
+* what about object fields that hold the result of a calculation based on pieces of data? This is the classic computer science trade-off of time versus space: is it better to spend the memory (space) to store the value, or better to spend the time (CPU cycles) to calculate the value as needed? In Java, though, the trade-off applies to CPU time as well, since the additional memory can cause GC to consume more CPU cycles.
+* Use lazy initialization only when the common code paths will leave variables uninitialized. Lazy initialization of thread-safe code is unusual but can often piggyback on existing synchronization. Use double-checked locking for lazy initialization of code using thread-safe objects.
 
 
 
