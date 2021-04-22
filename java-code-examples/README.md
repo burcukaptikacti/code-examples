@@ -40,6 +40,27 @@ The old generation initially fills up by placing the objects right next to each 
 *The size of an object is not always immediately apparent: ob‐ jects are padded to fit on 8-byte boundaries, and object refer‐ ence sizes are different between 32- and 64-bit JVMs. Even null instance variables consume space within object classes.
 * what about object fields that hold the result of a calculation based on pieces of data? This is the classic computer science trade-off of time versus space: is it better to spend the memory (space) to store the value, or better to spend the time (CPU cycles) to calculate the value as needed? In Java, though, the trade-off applies to CPU time as well, since the additional memory can cause GC to consume more CPU cycles.
 * Use lazy initialization only when the common code paths will leave variables uninitialized. Lazy initialization of thread-safe code is unusual but can often piggyback on existing synchronization. Use double-checked locking for lazy initialization of code using thread-safe objects.
+* The amount of live data is more important even than the size of the heap; it is faster to process a 3 GB old generation with few surviving objects than to process a 1 GB old generation where 75% of the objects survive.
+*  Object initialization performance depends on the object. You should only consider reusing objects with a very high initialization cost, and only then if the cost of initializing those objects is one of the dominant operations in your program.
+*  When initialization of objects takes a long time, don’t be afraid to explore object pooling or thread-local variables to reuse those expensive-to-create objects. As always, though, strike a balance: large object pools of generic classes will most certainly lead to more performance issues than they solve.Leave these techniques to classes that are expensive to initialize, and when the number of the reused objects will be small.
+* There are trade-offs between reusing an object via an object pool or using a thread-local variable. In general, thread-local variables are easier to work with, assuming that a one-to-one correspondence between threads and reusable objects is desired.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
