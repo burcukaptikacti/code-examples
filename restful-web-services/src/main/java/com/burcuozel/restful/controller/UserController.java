@@ -77,12 +77,11 @@ public class UserController {
 
 	/*
 	 * Internationalization -1
-	 * 
-	 * @GetMapping("/users-messages") public String
-	 * retrieveUserMessage(@RequestHeader(name = "Accept-Language", required =
-	 * false) Locale locale) { return messageSource.getMessage("user.message", null,
-	 * locale); }
 	 */
+	@GetMapping("/users-messages-old")
+	public String retrieveUserMessageOld(@RequestHeader(name = "Accept-Language", required = false) Locale locale) {
+		return messageSource.getMessage("user.message", null, locale);
+	}
 
 	@GetMapping("/users-messages")
 	public String retrieveUserMessage() {
