@@ -44,8 +44,8 @@ The old generation initially fills up by placing the objects right next to each 
 *  Object initialization performance depends on the object. You should only consider reusing objects with a very high initialization cost, and only then if the cost of initializing those objects is one of the dominant operations in your program.
 *  When initialization of objects takes a long time, don’t be afraid to explore object pooling or thread-local variables to reuse those expensive-to-create objects. As always, though, strike a balance: large object pools of generic classes will most certainly lead to more performance issues than they solve.Leave these techniques to classes that are expensive to initialize, and when the number of the reused objects will be small.
 * There are trade-offs between reusing an object via an object pool or using a thread-local variable. In general, thread-local variables are easier to work with, assuming that a one-to-one correspondence between threads and reusable objects is desired.
-
-
+* Weak references should be used when the referent in question will be used by several threads simultaneously. Otherwise, the weak reference is too likely to be reclaimed by the garbage collector: objects that are only weakly referenced are reclaimed at every GC cycle.
+* It is as if we are saying to the JVM: “Hey, as long as someone else is interested in this object, let me know where it is, but if they no longer need it, throw it away and I will re-create it myself.” Compare that to a soft reference, which essentially says: “Hey, try and keep this around as long as there is enough memory and as long as it seems that someone is occasionally accessing it.” Not understanding this distinction is the most frequent performance issue that occurs when using weak references. Don’t make the mistake of thinking that a weak reference is just like a soft reference except that it is freed more quickly: a softly referenced object will be available for (usually) minutes or even hours, but a weakly referenced object will be available only for as long as its referent is still around (subject to the next GC cycle clearing it).
 
 
 
