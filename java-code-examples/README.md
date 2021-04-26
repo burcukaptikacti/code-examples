@@ -47,9 +47,14 @@ The old generation initially fills up by placing the objects right next to each 
 * Weak references should be used when the referent in question will be used by several threads simultaneously. Otherwise, the weak reference is too likely to be reclaimed by the garbage collector: objects that are only weakly referenced are reclaimed at every GC cycle.
 * It is as if we are saying to the JVM: “Hey, as long as someone else is interested in this object, let me know where it is, but if they no longer need it, throw it away and I will re-create it myself.” Compare that to a soft reference, which essentially says: “Hey, try and keep this around as long as there is enough memory and as long as it seems that someone is occasionally accessing it.” Not understanding this distinction is the most frequent performance issue that occurs when using weak references. Don’t make the mistake of thinking that a weak reference is just like a soft reference except that it is freed more quickly: a softly referenced object will be available for (usually) minutes or even hours, but a weakly referenced object will be available only for as long as its referent is still around (subject to the next GC cycle clearing it).
 
+##### THREADS
+The guidelines apply to the performance of CAS-based utilities compared to traditional synchronization: 
+* If access to a resource is uncontended, then CAS-based protection will be slightly faster than traditional synchronization (though no protection at all will be slightly faster still).
+* If access to a resource is lightly or moderately contended, CAS-based protection will be faster (often much faster) than traditional synchronization.
+* As access to the resource becomes heavily contended, traditional synchronization will at some point become the more efficient choice. In practice, this occurs only on very large machines running a large number of threads.
+* CAS-based protection is not subject to contention when values are read and not written.
 
-
-
+* Thread stacks can show how significantly threads are blocked (since a thread that is blocked is already at a safepoint). If successive thread dumps show a large number of threads blocked on a lock, then you can conclude that the lock in question has significant contention. If successive thread dumps show a large number of threads blocked waiting for I/O, then you can conclude that whatever I/O they are reading needs to be tuned (e.g., if they are making a database call, the SQL they are executing needs to be tuned, or the database itself needs to be tuned).
 
 
 
