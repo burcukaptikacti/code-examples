@@ -56,10 +56,16 @@ The guidelines apply to the performance of CAS-based utilities compared to tradi
 
 * Thread stacks can show how significantly threads are blocked (since a thread that is blocked is already at a safepoint). If successive thread dumps show a large number of threads blocked on a lock, then you can conclude that the lock in question has significant contention. If successive thread dumps show a large number of threads blocked waiting for I/O, then you can conclude that whatever I/O they are reading needs to be tuned (e.g., if they are making a database call, the SQL they are executing needs to be tuned, or the database itself needs to be tuned).
 
+##### DATABASES
 
 
+**JDBC** 
 
+* JDBC drivers can be written to perform more work within the Java application (the database client) or to perform more work on the database server.The thin driver is written to have a fairly small footprint within the Java application: it relies on the database server to do more processing. The thick driver is just the opposite: it offloads work from the database at the expense of requiring more processing and more memory on the Java client.
 
+* In most circumstances, code should use a PreparedStatement rather than a Statement for its JDBC calls. The difference is that prepared statements allow the database to reuse information about the SQL that is being executed. Prepared statements provide their performance benefit when they are pooled—that is, when the actual PreparedStatement object is reused. 
+
+*  Transactions affect the speed of applications in two ways: trans‐ actions are expensive to commit, and the locking associated with transactions can prevent database scaling.
 
 
 
