@@ -70,10 +70,44 @@ The guidelines apply to the performance of CAS-based utilities compared to tradi
 
 
 
+##### JAVA SE API Tips
 
+**I/0**
+* Using the write() method to send a single byte to a FileOutputStream requires a system call to store the byte in a kernel buffer. Eventually (when the file is closed or flushed), the kernel will write out that buffer to the disk. The same is true of reading data. For file-based I/O using binary data, always use a BufferedInputStream or BufferedOutputStream to wrap the underlying file stream. For file-based I/O using character (string) data, always wrap the underlying stream with a BufferedReader or BufferedWriter. Always make sure that the streams are appropriately wrapped with a buffering filter stream
 
+* Wrapping ByteArrayInputStream/ByteArrayOutputStream with a buffering filter stream means that data is copied twice: once to the buffer in the filter stream, and once to the buffer in the ByteArrayInputStream (or vice versa for output streams). 
 
+**Random**
+* Java’s default Random class is expensive to initialize, but once initialized, it can be reused.
+* In multithreaded code,theThreadLocalRandomclassispreferred.
+* The SecureRandom class will show arbitrary, completely random performance. Performance tests on code using that class must be carefully planned.
 
+**Exception**
+* Exceptions are not necessarily expensive to process,though they should be used only when appropriate.
+* The deeper the stack, the more expensive to process exceptions.
+* The JVM will optimize away the stack penalty for frequently created system exceptions.(Reuse exception object)
+* Disabling stack traces in exceptions can sometimes help perfomance, though crucial information is often lost in the process.
 
+**String**
+* Never construct strings using concatenation unless it can be done on a single (logical) line, and never use string concatenation inside a loop unless the concatenated string is not used on the next loop iteration. Otherwise, always explicitly use a StringBuilder object for better performance. 
 
+ **Collection API**
+ * When most developers are asked how to quickly sort any array, they will offer up quick‐ sort as the answer. Good performance engineers will want to know the size of the array: if the array is small enough, then the fastest way to sort it will be to use insertion sort. (Algorithms based on quicksort will usually use insertion sort for small arrays anyway; in the case of Java, the implementation of the Arrays.sort() method assumes that any array with less than 47 elements will be sorted faster with insertion sort than with quicksort.) Size matters.
+ 
+ * Sizing of collections can have a large impact on performance: either slowing down the garbage collector if the collection is too large, or causing lots of copying and resizing if it is too small.
+ 
+ **Lambda**
+ * The choice between using a lambda or an anonymous class should be dictated by ease of programming, since there is no difference between their performance.
+* Lambdas are not implemented as classes,so one exception to that rule is in environments where classloading behavior is important; lambdas will be slightly faster in that case.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
