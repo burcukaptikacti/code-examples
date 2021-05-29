@@ -12,19 +12,19 @@ import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
 import org.springframework.plugin.core.SimplePluginRegistry;
-
+/*
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-@Configuration
-@EnableSwagger2
+*/
+//@Configuration
+//@EnableSwagger2
 public class SwaggerConfig {
 
-	private static final Contact DEFAULT_CONTACT = new Contact("Burcu Özel", "url", "burcuözel@blabla.com");
+/*	private static final Contact DEFAULT_CONTACT = new Contact("Burcu Özel", "url", "burcuözel@blabla.com");
 	private static final Set<String> DEFAULT_PRODUCES_AND_CONSUMES = new HashSet<String>(
 			Arrays.asList("application/json", "application/xml"));
 
@@ -45,5 +45,5 @@ public class SwaggerConfig {
 		return new ApiInfoBuilder().title("API Documentation").description("API Documentation").contact(DEFAULT_CONTACT)
 				.version("1.0.0").build();
 
-	}
+	}*/
 }
